@@ -32,7 +32,7 @@ function App() {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
         const password = prompt('অ্যাডমিন পাসওয়ার্ড দিন:')
-        if (password === 'admin123') {
+        if (password === 'error407') {
           setCurrentPage('admin')
         } else if (password) {
           alert('ভুল পাসওয়ার্ড!')
@@ -51,7 +51,7 @@ function App() {
     if (newCount >= 5) {
       setClickCount(0)
       const password = prompt('অ্যাডমিন পাসওয়ার্ড দিন:')
-      if (password === 'admin123') {
+      if (password === 'error407') {
         setCurrentPage('admin')
       } else if (password) {
         alert('ভুল পাসওয়ার্ড!')
