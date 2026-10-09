@@ -1,0 +1,174 @@
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', 'Kalpurush', 'SolaimanLipi', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f6f9;
+  color: #2c3e50;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #1a365d;
+  color: #ffffff;
+  padding: 20px 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ৩. নতুন লোগো ইমেজ কন্টেইনার এবং ইমেজের স্টাইল যোগ করুন */
+.logo-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 50px; /* লোগোর উচ্চতা আপনার প্রয়োজনমতো পরিবর্তন করুন */
+  width: auto;  /* উচ্চতা অনুযায়ী চওড়া ঠিক থাকবে */
+  max-width: 100%;
+  border-radius: 20%;
+  object-fit: contain; /* লোগোটি যেন বিকৃত না হয় */
+}
+
+.logo-text h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.logo-text p {
+  font-size: 13px;
+  color: #cbd5e0;
+  margin-top: 2px;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+}
+
+.hero h2 {
+  font-size: 32px;
+  color: #1a365d;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #4a5568;
+}
+
+/* Cards Section */
+.cards-container {
+  max-width: 1000px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 35px 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.card-badge {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #edf2f7;
+  color: #4a5568;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.card-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 24px;
+  color: #1a365d;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 15px;
+  color: #718096;
+  line-height: 1.7;
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
+
+/* Button */
+.start-btn {
+  background-color: #2b6cb0;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.start-btn:hover {
+  background-color: #1c4ed8;
+}
+
+.start-btn span {
+  transition: transform 0.2s ease;
+}
+
+.start-btn:hover span {
+  transform: translateX(5px);
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  background-color: #1a365d;
+  color: #a0aec0;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
