@@ -118,13 +118,13 @@ const ModelTest = ({ onBack }) => {
       {/* Loading View */}
       {loading ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
-          <h3>🔄 ডেটাবেজ থেকে মডেল টেস্টের প্রশ্ন লোড হচ্ছে...</h3>
+          <h3> মডেল টেস্টের প্রশ্ন লোড হচ্ছে...</h3>
         </div>
       ) : questions.length === 0 ? (
         /* Empty View */
         <div style={{ textAlign: 'center', padding: '40px', background: '#2d3748', borderRadius: '8px' }}>
-          <h3>⚠️ ডেটাবেজে কোনো মডেল টেস্টের প্রশ্ন পাওয়া যায়নি!</h3>
-          <p style={{ color: '#a0aec0' }}>অনুগ্রহ করে অ্যাডমিন প্যানেল থেকে মডেল টেস্টের প্রশ্ন যুক্ত করুন।</p>
+          <h3>  কোনো মডেল টেস্টের প্রশ্ন পাওয়া যায়নি!</h3>
+          <p style={{ color: '#a0aec0' }}>অনুগ্রহ করে মডেল টেস্টের প্রশ্ন যুক্ত করুন।</p>
         </div>
       ) : (
         /* Question List */
@@ -196,11 +196,11 @@ const ModelTest = ({ onBack }) => {
                 marginTop: '10px'
               }}
             >
-              ✅ মডেল টেস্ট জমা দিন (Submit Exam)
+               মডেল টেস্ট জমা দিন (Submit Exam)
             </button>
           ) : (
             <div style={{ background: '#2b6cb0', padding: '20px', borderRadius: '8px', textAlign: 'center', marginTop: '20px' }}>
-              <h2 style={{ margin: 0 }}>🎉 ফলাফল: ২০-এর মধ্যে পেয়েছেন {score} মার্কস!</h2>
+              <h2 style={{ margin: 0 }}> ফলাফল: ২০-এর মধ্যে পেয়েছেন {score} মার্কস!</h2>
               <p style={{ margin: '10px 0 0 0' }}>উপরে সবুজ রঙ্গে সঠিক উত্তর এবং লাল রঙ্গে ভুল উত্তর দেখানো হয়েছে।</p>
             </div>
           )}

@@ -25,11 +25,11 @@ const MadrasaDashboard = ({ user }) => {
   const activeTopic = safeBanglaTopics[activeTopicIndex] || null
 
   const subjects = [
-    { id: 'bangla', name: '📚 বাংলা', count: safeBanglaTopics.length, data: safeBanglaTopics },
-    { id: 'english', name: '🇬🇧 ইংরেজি', count: 0, data: [] },
-    { id: 'gk', name: '🌍 সাধারণ জ্ঞান', count: 0, data: [] },
-    { id: 'science', name: '🧪 বিজ্ঞান', count: 0, data: [] },
-    { id: 'ict', name: '💻 তথ্য ও যোগাযোগ প্রযুক্তি (ICT)', count: 0, data: [] },
+    { id: 'bangla', name: ' বাংলা', count: safeBanglaTopics.length, data: safeBanglaTopics },
+    { id: 'english', name: ' ইংরেজি', count: 0, data: [] },
+    { id: 'gk', name: ' সাধারণ জ্ঞান', count: 0, data: [] },
+    { id: 'science', name: ' বিজ্ঞান', count: 0, data: [] },
+    { id: 'ict', name: ' তথ্য ও যোগাযোগ প্রযুক্তি (ICT)', count: 0, data: [] },
   ]
 
   const progressPercent = safeBanglaTopics.length > 0 
@@ -87,7 +87,7 @@ const MadrasaDashboard = ({ user }) => {
       {/* SIDEBAR */}
       <div style={{ flex: '1', background: '#1a202c', padding: '20px', borderRadius: '10px', minWidth: '300px' }}>
         <h3 style={{ borderBottom: '2px solid #3182ce', paddingBottom: '10px', marginTop: 0 }}>
-          🎓 মাদ্রাসা টু বিশ্ববিদ্যালয়
+           মাদ্রাসা টু বিশ্ববিদ্যালয়
         </h3>
         
         {/* Progress Bar */}

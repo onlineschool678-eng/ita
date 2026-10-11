@@ -31,11 +31,11 @@ function App() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-        const password = prompt('অ্যাডমিন পাসওয়ার্ড দিন:')
+        const password = prompt('Enter the code:')
         if (password === 'error407') {
           setCurrentPage('admin')
         } else if (password) {
-          alert('ভুল পাসওয়ার্ড!')
+          alert('Wrong code')
         }
       }
     }
@@ -50,11 +50,11 @@ function App() {
 
     if (newCount >= 5) {
       setClickCount(0)
-      const password = prompt('অ্যাডমিন পাসওয়ার্ড দিন:')
+      const password = prompt('Enter the code:')
       if (password === 'error407') {
         setCurrentPage('admin')
       } else if (password) {
-        alert('ভুল পাসওয়ার্ড!')
+        alert('Wrong code')
       }
     } else {
       setTimeout(() => setClickCount(0), 3000)
@@ -98,7 +98,7 @@ function App() {
           <div className="logo-image-container">
             <img 
               src={itaLogo} 
-              alt="ITA লোগো" 
+              alt="ITA Logo" 
               className="logo-img" 
               onError={(e) => { e.target.style.display = 'none' }} 
             />
@@ -158,7 +158,7 @@ function App() {
         <>
           <section className="hero">
             <h2>ইন্টারন্যাশনাল ট্রোভা একাডেমিতে আপনাকে স্বাগতম</h2>
-            <p>প্রতিটি শিক্ষার্থীর জন্য একটি ক্লাসিক ও আধুনিক শিক্ষামূলক প্ল্যাটফর্ম</p>
+            <p>প্রতিটি শিক্ষার্থীর জন্য একটি আধুনিক শিক্ষামূলক প্ল্যাটফর্ম</p>
           </section>
 
           <main className="cards-container">

@@ -34,7 +34,7 @@ function Login({ onSwitchToSignup, onLoginSuccess }) {
 
     } catch (error) {
       console.error("Neon DB Error:", error)
-      setMessage('লগইন করতে সমস্যা হয়েছে! .env চেক করুন।')
+      setMessage('লগইন করতে সমস্যা হয়েছে!')
     } finally {
       setLoading(false)
     }

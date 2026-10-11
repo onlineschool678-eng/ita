@@ -22,7 +22,7 @@ const WelcomeModal = ({ user, courseType, onStart }) => {
         maxWidth: '400px',
         color: '#333'
       }}>
-        <h2>অভিনন্দন {user?.full_name || 'শিক্ষার্থী'}! 🎉</h2>
+        <h2>অভিনন্দন {user?.full_name || 'শিক্ষার্থী'}</h2>
         <p>আপনার কোর্স এনরোলমেন্ট সফল হয়েছে।</p>
         <button 
           onClick={onStart}

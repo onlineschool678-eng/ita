@@ -22,11 +22,11 @@ const AdminPanel = ({ onBack }) => {
 
   // Available subjects for model test
   const subjectList = [
-    { id: 'bangla', name: '📚 বাংলা' },
-    { id: 'english', name: '🇬🇧 ইংরেজি' },
-    { id: 'gk', name: '🌍 সাধারণ জ্ঞান' },
-    { id: 'science', name: '🧪 বিজ্ঞান' },
-    { id: 'ict', name: '💻 তথ্য ও যোগাযোগ প্রযুক্তি (ICT)' }
+    { id: 'bangla', name: ' বাংলা' },
+    { id: 'english', name: ' ইংরেজি' },
+    { id: 'gk', name: ' সাধারণ জ্ঞান' },
+    { id: 'science', name: ' বিজ্ঞান' },
+    { id: 'ict', name: ' তথ্য ও যোগাযোগ প্রযুক্তি (ICT)' }
   ]
 
   // Page Load
@@ -104,7 +104,7 @@ const AdminPanel = ({ onBack }) => {
         )
       )
 
-      alert(`গট ইট! ইউজার (${userItem.full_name || userItem.email}) সফলভাবে '${targetCourse === 'biggan' ? 'বিজ্ঞান ড্যাশবোর্ড' : 'মাদ্রাসা টু বিশ্ববিদ্যালয়'}' কোর্সে ${nextStatus ? 'ACTIVE & PAID' : 'INACTIVE'} করা হয়েছে!`)
+      alert(` ইউজার (${userItem.full_name || userItem.email}) সফলভাবে '${targetCourse === 'biggan' ? 'বিজ্ঞান ড্যাশবোর্ড' : 'মাদ্রাসা টু বিশ্ববিদ্যালয়'}' কোর্সে ${nextStatus ? 'ACTIVE & PAID' : 'INACTIVE'} করা হয়েছে!`)
     } catch (error) {
       console.error("Database Update Error:", error)
       alert("Database-এ আপডেট ব্যর্থ হয়েছে!")
@@ -144,7 +144,7 @@ const AdminPanel = ({ onBack }) => {
         VALUES (${selectedSubject}, ${questionText.trim()}, ${optionsJson}::jsonb, ${correctAnswer});
       `
 
-      alert("🎉 সফলভাবে মডেল টেস্টের প্রশ্ন ডেটাবেজে যুক্ত হয়েছে!")
+      alert(" সফলভাবে মডেল টেস্টের প্রশ্ন ডেটাবেজে যুক্ত হয়েছে!")
 
       // Reset Form
       setQuestionText('')
@@ -164,8 +164,8 @@ const AdminPanel = ({ onBack }) => {
       {/* Header Area */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '15px' }}>
         <div>
-          <h2 style={{ margin: 0, color: '#4fd1c5' }}>👑 ITA অ্যাডমিন প্যানেল</h2>
-          <p style={{ margin: '5px 0 0 0', fontSize: '13px', color: '#a0aec0' }}>সরাসরি Neon PostgreSQL ডেটাবেজ সিঙ্কed</p>
+          <h2 style={{ margin: 0, color: '#4fd1c5' }}>ITA অ্যাডমিন প্যানেল</h2>
+          <p style={{ margin: '5px 0 0 0', fontSize: '13px', color: '#a0aec0' }}>Control ITA From One Panel</p>
         </div>
         
         <button 
@@ -179,7 +179,7 @@ const AdminPanel = ({ onBack }) => {
       {/* NEW: DIRECT MODEL TEST QUESTION ADD SECTION */}
       <div style={{ background: '#1a202c', borderRadius: '10px', padding: '20px', marginBottom: '30px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', border: '1px solid #2d3748' }}>
         <h3 style={{ marginTop: 0, color: '#f6ad55', borderBottom: '1px solid #2d3748', paddingBottom: '10px' }}>
-          📝 মডেল টেস্টের প্রশ্ন ব্যাংক ম্যানেজমেন্ট (Direct Database Insert)
+          মডেল টেস্টের প্রশ্ন ব্যাংক ম্যানেজমেন্ট (Direct Database Insert)
         </h3>
 
         <form onSubmit={handleAddModelTestQuestion}>
@@ -266,7 +266,7 @@ const AdminPanel = ({ onBack }) => {
               opacity: isSubmitting ? 0.7 : 1
             }}
           >
-            {isSubmitting ? 'ডেটাবেজে সেভ হচ্ছে...' : '📥 ডেটাবেজে মডেল টেস্টের প্রশ্ন সেভ করুন'}
+            {isSubmitting ? 'ডেটাবেজে সেভ হচ্ছে...' : ' ডেটাবেজে মডেল টেস্টের প্রশ্ন সেভ করুন'}
           </button>
         </form>
       </div>
@@ -274,7 +274,7 @@ const AdminPanel = ({ onBack }) => {
       {/* User Table Section */}
       {loading ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
-          <h3>🔄 Neon Database থেকে ইউজার ডেটা লোড হচ্ছে...</h3>
+          <h3> ইউজার ডেটা লোড হচ্ছে...</h3>
         </div>
       ) : (
         <div style={{ background: '#1a202c', borderRadius: '10px', padding: '10px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}>
@@ -309,8 +309,8 @@ const AdminPanel = ({ onBack }) => {
                         onChange={(e) => setSelectedCourseMap({ ...selectedCourseMap, [u.email]: e.target.value })}
                         style={{ padding: '6px 8px', background: '#2d3748', color: '#fff', border: '1px solid #4a5568', borderRadius: '4px', outline: 'none', fontSize: '13px' }}
                       >
-                        <option value="madrasa">🎓 মাদ্রাসা টু বিশ্ববিদ্যালয়</option>
-                        <option value="biggan">🧪 বিজ্ঞান ড্যাশবোর্ড</option>
+                        <option value="madrasa">মাদ্রাসা টু বিশ্ববিদ্যালয়</option>
+                        <option value="biggan"> বিজ্ঞান ড্যাশবোর্ড</option>
                       </select>
                     </td>
 
