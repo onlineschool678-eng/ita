@@ -7,20 +7,16 @@ import Login from './components/Login'
 import itaLogo from './assets/ita-logo.jpg'
 
 // safe/optional import handler
-import * as PaymentGatewayModule from './components/PaymentGateway'
 import * as WelcomeModalModule from './components/WelcomeModal'
-import * as MadrasaDashboardModule from './components/MadrasaDashboard'
 import * as BigganDashboardModule from './components/BigganDashboard'
 import AdminPanel from './components/AdminPanel'
 
-const PaymentGateway = PaymentGatewayModule.default || (() => <div style={{padding: '20px', color: 'red'}}>Payment Component Error</div>)
 const WelcomeModal = WelcomeModalModule.default || (() => <div style={{padding: '20px', color: 'red'}}>Welcome Modal Error</div>)
-const MadrasaDashboard = MadrasaDashboardModule.default || (() => <div style={{padding: '20px', color: 'red'}}>Madrasa Dashboard Error</div>)
 const BigganDashboard = BigganDashboardModule.default || (() => <div style={{padding: '20px', color: 'red'}}>Biggan Dashboard Error</div>)
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
-  const [selectedStream, setSelectedStream] = useState('')
+  const [selectedStream, setSelectedStream] = useState('biggan_amar_odhikar')
   const [user, setUser] = useState(null)
   const [showWelcomeModal, setShowWelcomeModal] = useState(false)
 
@@ -43,8 +39,11 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  // Logo Click Secret Handler (5 Clicks)
+  // Logo Click Secret Handler (5 Clicks for Admin / Normal Click goes to Home)
   const handleLogoClick = () => {
+    // Normal click goes to Home
+    setCurrentPage('home')
+
     const newCount = clickCount + 1
     setClickCount(newCount)
 
@@ -68,62 +67,78 @@ function App() {
     setShowWelcomeModal(false)
   }
 
+  // Handle Free Course Start (No Payment required)
   const handleStartCourse = (streamName) => {
     setSelectedStream(streamName)
     if (!user) {
       setCurrentPage('signup')
-    } else if (!user.is_active) {
-      setCurrentPage('payment')
     } else {
       setShowWelcomeModal(true)
       setCurrentPage('dashboard')
     }
   }
 
+  // Auth Success Handler (Sets user as active immediately)
   const handleAuthSuccess = (userData) => {
-    setUser(userData)
-    if (!userData.is_active) {
-      setCurrentPage('payment')
-    } else {
-      setShowWelcomeModal(true)
-      setCurrentPage('dashboard')
+    const activeUser = {
+      ...userData,
+      is_active: true,
+      enrolled_course: 'biggan_amar_odhikar'
     }
+    setUser(activeUser)
+    setShowWelcomeModal(true)
+    setCurrentPage('dashboard')
   }
 
   return (
-    <div className="app-container">
+    <div className="app-container" style={{ background: '#0b0f19', color: '#f7fafc', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
+      
       {/* Header Section */}
-      <header className="navbar">
-        <div className="logo-container" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-          <div className="logo-image-container">
+      <header className="navbar" style={{ background: '#111827', borderBottom: '1px solid #1f2937', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+        <div className="logo-container" onClick={handleLogoClick} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="logo-image-container" style={{ width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden', border: '2px solid #3b82f6', flexShrink: 0 }}>
             <img 
               src={itaLogo} 
               alt="ITA Logo" 
               className="logo-img" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               onError={(e) => { e.target.style.display = 'none' }} 
             />
           </div>
           <div className="logo-text">
-            <h1>ইন্টারন্যাশনাল ট্রোভা একাডেমি</h1>
-            <p>শিক্ষার মাধ্যমে সমৃদ্ধ আগামী গঠন</p>
+            <h1 style={{ fontSize: '16px', margin: '0', color: '#ffffff', fontWeight: '800', letterSpacing: '0.5px' }}>
+              ইন্টারন্যাশনাল ট্রোভা একাডেমি
+            </h1>
+            <p style={{ fontSize: '11px', margin: '2px 0 0 0', color: '#ef4444', fontWeight: '600' }}>
+              বিজ্ঞান আমার অধিকার ⚡
+            </p>
           </div>
         </div>
 
         {/* Header Right Nav Options */}
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+          {/* Quick Home Button */}
+          <button 
+            onClick={() => setCurrentPage('home')}
+            style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #3b82f6', background: 'transparent', color: '#60a5fa', cursor: 'pointer', fontWeight: '600', fontSize: '13px' }}
+          >
+            হোম
+          </button>
+
           {user ? (
             <>
-              <span style={{ color: '#fff', fontWeight: 'bold' }}>স্বাগতম, {user.full_name || user.email}</span>
+              <span style={{ color: '#cbd5e1', fontWeight: '600', fontSize: '13px' }}>স্বাগতম, {user.full_name || user.email}</span>
               <button 
                 onClick={handleLogout}
                 style={{ 
                   padding: '6px 12px', 
-                  borderRadius: '5px', 
+                  borderRadius: '6px', 
                   border: 'none', 
-                  background: '#e53e3e', 
+                  background: '#ef4444', 
                   color: '#fff', 
                   cursor: 'pointer',
-                  fontWeight: 'bold' 
+                  fontWeight: 'bold',
+                  fontSize: '13px'
                 }}
               >
                 লগআউট
@@ -133,13 +148,13 @@ function App() {
             <>
               <button 
                 onClick={() => setCurrentPage('login')} 
-                style={{ padding: '8px 16px', borderRadius: '5px', border: '1px solid #fff', background: 'transparent', color: '#fff', cursor: 'pointer' }}
+                style={{ padding: '6px 14px', borderRadius: '6px', border: '1px solid #4b5563', background: 'transparent', color: '#f3f4f6', cursor: 'pointer', fontWeight: '600', fontSize: '13px' }}
               >
                 লগইন
               </button>
               <button 
                 onClick={() => setCurrentPage('signup')} 
-                style={{ padding: '8px 16px', borderRadius: '5px', border: 'none', background: '#3182ce', color: '#fff', cursor: 'pointer' }}
+                style={{ padding: '6px 14px', borderRadius: '6px', border: 'none', background: '#2563eb', color: '#fff', cursor: 'pointer', fontWeight: '600', fontSize: '13px', boxShadow: '0 0 10px rgba(37, 99, 235, 0.4)' }}
               >
                 সাইন আপ
               </button>
@@ -153,40 +168,58 @@ function App() {
         <AdminPanel onBack={() => setCurrentPage('home')} />
       )}
 
-      {/* Main Home Content */}
+      {/* Main Home Content - Cyber Science Theme */}
       {currentPage === 'home' && (
         <>
-          <section className="hero">
-            <h2>ইন্টারন্যাশনাল ট্রোভা একাডেমিতে আপনাকে স্বাগতম</h2>
-            <p>প্রতিটি শিক্ষার্থীর জন্য একটি আধুনিক শিক্ষামূলক প্ল্যাটফর্ম</p>
+          <section className="hero" style={{ textAlign: 'center', padding: '50px 15px', background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)', borderBottom: '1px solid #1f2937' }}>
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 32px)', color: '#ffffff', marginBottom: '12px', fontWeight: 'bold', lineHeight: '1.3' }}>
+              বিজ্ঞান সবার জন্য, <span style={{ color: '#ef4444' }}>বিজ্ঞান আমার অধিকার</span>
+            </h2>
+            <p style={{ fontSize: 'clamp(14px, 2vw, 16px)', color: '#94a3b8', maxWidth: '650px', margin: '0 auto', lineHeight: '1.6' }}>
+              জটিল বিজ্ঞানকে সহজ পরীক্ষা, লজিক এবং রিয়েল-ওয়ার্ল্ড অ্যাপ্লিকেশন দিয়ে শেখার সর্বাধুনিক ডিজিটাল প্ল্যাটফর্ম।
+            </p>
           </section>
 
-          <main className="cards-container">
-            <div className="card">
-              <div className="card-badge">Course 01</div>
-              <div className="card-icon"></div>
-              <h3>মাদ্রাসা টু বিশ্ববিদ্যালয়</h3>
-              <p>
-                মাদ্রাসা ব্যাকগ্রাউন্ডের শিক্ষার্থীদের জন্য বিশ্ববিদ্যালয় ভর্তি নিশ্চিতকরণে সঠিক দিকনির্দেশনা এবং বিশেষ অ্যাকাডেমিক কেয়ার।
-              </p>
-              <button 
-                className="start-btn" 
-                onClick={() => handleStartCourse('madrasa_to_university')}
-              >
-                যাত্রা শুরু করুন <span>→</span>
-              </button>
-            </div>
-
-            <div className="card">
-              <div className="card-badge">Course 02</div>
-              <div className="card-icon"></div>
-              <h3>বিজ্ঞান আমার অধিকার</h3>
-              <p>
-                সহজ ভাষায় বিজ্ঞানের জটিল বিষয় শিক্ষাদান, প্র্যাকটিক্যাল জ্ঞান বৃদ্ধি এবং বিজ্ঞানকে সবার দোরগোড়ায় পৌঁছে দেওয়ার বিশেষ উদ্যোগ।
+          <main className="cards-container" style={{ display: 'flex', justifyContent: 'center', padding: '40px 15px', flex: '1' }}>
+            <div className="card" style={{ 
+              background: '#111827', 
+              border: '1px solid #374151', 
+              borderRadius: '12px', 
+              padding: '25px', 
+              maxWidth: '480px', 
+              width: '100%',
+              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(37, 99, 235, 0.15)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div className="card-badge" style={{ position: 'absolute', top: '15px', right: '15px', background: '#2563eb', color: '#fff', padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold' }}>
+                FREE ACCESS 🔓
+              </div>
+              <h3 style={{ fontSize: '20px', color: '#f8fafc', marginBottom: '15px', borderLeft: '4px solid #ef4444', paddingLeft: '10px' }}>
+                বিজ্ঞান আমার অধিকার
+              </h3>
+              <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.6', marginBottom: '25px' }}>
+                মুখস্থ বিদ্যা বাদ দিয়ে বিজ্ঞানের মূল রহস্য উদঘাটন করুন। পদার্থবিজ্ঞান, রসায়ন, জীববিজ্ঞান এবং আধুনিক প্রযুক্তির সার্থক মেলবন্ধনে সাজানো আমাদের এই এক্সক্লুসিভ কোর্স।
               </p>
               <button 
                 className="start-btn" 
                 onClick={() => handleStartCourse('biggan_amar_odhikar')}
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  background: 'linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%)', 
+                  color: '#fff', 
+                  border: 'none', 
+                  borderRadius: '8px', 
+                  fontWeight: 'bold', 
+                  fontSize: '15px', 
+                  cursor: 'pointer',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)'
+                }}
               >
                 যাত্রা শুরু করুন <span>→</span>
               </button>
@@ -200,6 +233,7 @@ function App() {
         <Signup 
           selectedStream={selectedStream} 
           onSwitchToLogin={() => setCurrentPage('login')} 
+          onSignupSuccess={handleAuthSuccess}
         />
       )}
 
@@ -211,43 +245,22 @@ function App() {
         />
       )}
 
-      {/* Payment Section */}
-      {currentPage === 'payment' && (
-        <PaymentGateway 
-          user={user} 
-          onPaymentSuccess={(updatedUser) => {
-            setUser(updatedUser || { ...user, payment_status: 'pending_approval', is_active: false })
-          }} 
-        />
-      )}
-
       {/* Welcome Modal Popup */}
       {showWelcomeModal && (
         <WelcomeModal 
           user={user} 
-          courseType={user?.enrolled_course || selectedStream} 
+          courseType={selectedStream} 
           onStart={() => setShowWelcomeModal(false)} 
         />
       )}
 
-      {/* Dashboard Section */}
-      {currentPage === 'dashboard' && (
-        user && user.is_active ? (
-          (user.enrolled_course === 'biggan' || selectedStream === 'biggan_amar_odhikar') ? (
-            <BigganDashboard user={user} />
-          ) : (
-            <MadrasaDashboard user={user} />
-          )
-        ) : (
-          <div style={{ textAlign: 'center', padding: '50px', color: '#fff' }}>
-            <h2>আপনার অ্যাকাউন্টটি এখনো অ্যাডমিন কর্তৃক অ্যাক্টিভ করা হয়নি!</h2>
-            <p>পেমেন্ট যাচাইকরণের পর অ্যাডমিন অ্যাক্টিভ করলে ড্যাশবোর্ড দেখা যাবে।</p>
-          </div>
-        )
+      {/* Dashboard Section (Direct Access for all Logged-in Users) */}
+      {currentPage === 'dashboard' && user && (
+        <BigganDashboard user={user} />
       )}
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="footer" style={{ textAlign: 'center', padding: '15px', background: '#111827', borderTop: '1px solid #1f2937', color: '#6b7280', fontSize: '13px', marginTop: 'auto' }}>
         <p>© {new Date().getFullYear()} ইন্টারন্যাশনাল ট্রোভা একাডেমি (ITA)। সর্বস্বত্ব সংরক্ষিত।</p>
       </footer>
     </div>
